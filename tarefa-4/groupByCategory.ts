@@ -3,12 +3,12 @@ type Item = {
     category: string
 }
 
-type Category = Record<string, string[]>;
+type Category = Record<string, Item[]>;
 
 export function groupByCategory(items: Item[]): Category {
     return items.reduce<Category>((acc, curr) => {
         acc[curr.category] = acc[curr.category] || []
-        acc[curr.category].push(curr.name)
+        acc[curr.category].push(curr)
         return acc
     }, {});
 }

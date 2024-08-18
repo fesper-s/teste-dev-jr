@@ -17,5 +17,5 @@ export function transformData(users: User[]): ActiveUser[] {
             id: users.id,
             name: users.name
         }))
-        .sort((a, b) => a.name.localeCompare(b.name));
+        .sort((a, b) => a.name.localeCompare(b.name))
 }
