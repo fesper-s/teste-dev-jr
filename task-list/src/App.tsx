@@ -5,8 +5,6 @@ import './App.css'
 import { TaskList } from './components/TaskList'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <h1>Task List</h1>
