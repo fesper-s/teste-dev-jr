@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 type Task = {
+    id: number
     title: string
     done: boolean
 }
@@ -8,7 +9,7 @@ type Task = {
 type TaskItemProps = {
     task: Task
     filterCompleted: boolean
-    toggleTaskDone: (taskTitle: string) => void
+    toggleTaskDone: (taskId: number) => void
 }
 
 function TaskItem({task, filterCompleted, toggleTaskDone}: Readonly<TaskItemProps>) {
@@ -20,7 +21,7 @@ function TaskItem({task, filterCompleted, toggleTaskDone}: Readonly<TaskItemProp
         return (
             <div style={{ display: "flex" }}>
                 <p>{task.title}</p>
-                <button onClick={() => toggleTaskDone(task.title)}>
+                <button onClick={() => toggleTaskDone(task.id)}>
                     Marcar como feito
                 </button>
             </div>
@@ -29,7 +30,7 @@ function TaskItem({task, filterCompleted, toggleTaskDone}: Readonly<TaskItemProp
     return (
         <div style={{ display: "flex" }}>
             <del>{task.title}</del>
-            <button onClick={() => toggleTaskDone(task.title)}>
+            <button onClick={() => toggleTaskDone(task.id)}>
                 ✅
             </button>
         </div>
@@ -47,6 +48,7 @@ export function TaskList() {
         }
 
         const newTask: Task = {
+            id: Math.random(),
             title: inputValue,
             done: false
         }
@@ -56,9 +58,9 @@ export function TaskList() {
         setFilterCompleted(false)
     }
 
-    const toggleTaskDone = (taskTitle: string) => {
+    const toggleTaskDone = (taskId: number) => {
         const newTasks = tasks.map((task) => {
-            if (task.title === taskTitle) {
+            if (task.id === taskId) {
                 return {...task, done: !task.done}
             }
             return task
@@ -87,7 +89,7 @@ export function TaskList() {
                 {tasks.map((task: Task) => {
                     return (
                         <TaskItem
-                            key={task.title}
+                            key={task.id}
                             task={task}
                             filterCompleted={filterCompleted}
                             toggleTaskDone={toggleTaskDone}
